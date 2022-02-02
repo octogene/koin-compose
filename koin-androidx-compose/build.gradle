@@ -6,6 +6,8 @@ plugins {
 
 apply from: "../gradle/versions.gradle"
 
+version = "$koin_androidx_compose_version"
+
 ext {
     android_sourceSet = true
     pom_name = "koin-androidx-compose"

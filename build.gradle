@@ -27,7 +27,6 @@ allprojects {
     }
 
     group = 'io.insert-koin'
-    version = "$koin_version"
 
     // Dokka
     apply plugin: 'org.jetbrains.dokka'
