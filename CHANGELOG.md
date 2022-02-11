@@ -3,6 +3,17 @@
 Badges: `[UPDATED]`, `[FIXED]`, `[NEW]`, `[DEPRECATED]`, `[REMOVED]`,  `[BREAKING]`
 
 
+# [3.2]()
+
+## [3.2.0-beta-1]()
+* `[UPDATED]` `[core]` - Kotlin 1.6.10
+* `[UPDATED]` `[core]` - Compose 1.1.0
+
+
+# [3.1]()
+
+## [3.1.5]()
+
 ## [3.1.5]()
 * `[FIXED]` `[android]` - #1240 - ViewModel scope instance creation fixed
 * `[FIXED]` `[android]` - #1232 & #1207 - Android minimum dependencies is clean up and should avoid indirect library crash

@@ -1,17 +1,17 @@
 ext {
     // Koin core 
-    koin_version = '3.1.5'
-
+    koin_version = '3.2.0-beta-1'
     // koin project versions
+    koin_androidx_compose_version = '3.2.0-beta-1'
+
     // androix-compose
-    koin_androidx_compose_version = '3.1.5'
-    androidx_compose_version = "1.0.5"
+    androidx_compose_version = "1.1.0"
 
     // pass it to true to make release
     is_snaptshot = true
 
     // Kotlin
-    kotlin_version = '1.5.31'
+    kotlin_version = '1.6.10'
 
     // Dokka
     dokka_version = '1.4.32'
