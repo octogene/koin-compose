@@ -1,11 +1,11 @@
 ext {
     // Koin core 
-    koin_version = '3.2.0-beta-1'
+    koin_version = '3.2.0-beta-2'
     // koin project versions
-    koin_androidx_compose_version = '3.2.0-beta-1'
+    koin_androidx_compose_version = '3.2.0-beta-2'
 
     // androix-compose
-    androidx_compose_version = "1.1.0"
+    androidx_compose_version = "1.1.1"
 
     // pass it to true to make release
     is_snaptshot = true
