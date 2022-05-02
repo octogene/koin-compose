@@ -58,10 +58,10 @@ dependencies {
     testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
     testImplementation 'junit:junit:4.13.2'
 
-    /* Compose */
+    // Compose
+    api "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
     api "androidx.compose.runtime:runtime:$androidx_compose_version"
     api "androidx.compose.ui:ui:$androidx_compose_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
 }

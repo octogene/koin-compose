@@ -5,9 +5,14 @@ Badges: `[UPDATED]`, `[FIXED]`, `[NEW]`, `[DEPRECATED]`, `[REMOVED]`,  `[BREAKIN
 
 # [3.2]()
 
+## [3.2.0-beta-2]()
+* `[UPDATED]` `[androidx-compose]` - Compose 1.1.1
+* `[UPDATED]` `[androidx-compose]` - Update ViewModel API internals due to Koin 3.2 latest update
+
+
 ## [3.2.0-beta-1]()
-* `[UPDATED]` `[core]` - Kotlin 1.6.10
-* `[UPDATED]` `[core]` - Compose 1.1.0
+* `[UPDATED]` `[androidx-compose]` - Kotlin 1.6.10
+* `[UPDATED]` `[androidx-compose]` - Compose 1.1.0
 
 
 # [3.1]()

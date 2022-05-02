@@ -19,13 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
-import org.koin.androidx.viewmodel.ViewModelOwner
-import org.koin.androidx.viewmodel.ext.android.getStateViewModel
+import org.koin.androidx.viewmodel.ViewModelParameter
+import org.koin.androidx.viewmodel.ext.android.getViewModelFactory
 import org.koin.androidx.viewmodel.scope.BundleDefinition
 import org.koin.androidx.viewmodel.scope.emptyState
-import org.koin.androidx.viewmodel.scope.getViewModel
 import org.koin.core.annotation.KoinInternalApi
 import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.ParametersDefinition
@@ -40,49 +40,56 @@ import org.koin.core.scope.Scope
  *
  * @author Arnaud Giuliani
  */
+
 @OptIn(KoinInternalApi::class)
 @Composable
 inline fun <reified T : ViewModel> getViewModel(
     qualifier: Qualifier? = null,
-    owner: ViewModelStoreOwner? = null,
+    owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+    },
     scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
-    noinline parameters: ParametersDefinition? = null,
+    noinline parameters: ParametersDefinition? = null
 ): T {
-    val storeOwner = owner?.let { ViewModelOwner.from(it) } ?: getComposeViewModelOwner()
     return remember(qualifier, parameters) {
-        scope.getViewModel(qualifier, { storeOwner }, parameters)
+        val vmClazz = T::class
+        val factory = getViewModelFactory(
+            owner, vmClazz, qualifier, parameters, scope = scope
+        )
+        ViewModelProvider(owner, factory).get(vmClazz.java)
     }
 }
 
-/**
- * Retrieve ViewModelOwner for current LocalViewModelStoreOwner & LocalSavedStateRegistryOwner
- *
- * @return ViewModelOwner
- */
+@OptIn(KoinInternalApi::class)
 @Composable
-fun getComposeViewModelOwner(): ViewModelOwner {
-    return ViewModelOwner.from(
-        LocalViewModelStoreOwner.current!!,
-        LocalSavedStateRegistryOwner.current
-    )
+inline fun <reified T : ViewModel> koinViewModel(
+    qualifier: Qualifier? = null,
+    owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+    },
+    scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
+    noinline parameters: ParametersDefinition? = null
+): T {
+    return getViewModel(qualifier, owner, scope, parameters)
 }
 
 @OptIn(KoinInternalApi::class)
 @Composable
 inline fun <reified T : ViewModel> viewModel(
     qualifier: Qualifier? = null,
-    owner: ViewModelStoreOwner? = null,
+    owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+    },
     scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
-    noinline parameters: ParametersDefinition? = null,
+    noinline parameters: ParametersDefinition? = null
 ): Lazy<T> {
-    val storeOwner = owner?.let { ViewModelOwner.from(it) } ?: getComposeViewModelOwner()
-    return remember(qualifier, parameters) {
-        lazy(LazyThreadSafetyMode.NONE) {
-            scope.getViewModel(
-                qualifier,
-                { storeOwner },
-                parameters
+    remember(qualifier, parameters) {
+        return lazy {
+            val vmClazz = T::class
+            val factory = getViewModelFactory(
+                owner, vmClazz, qualifier, parameters, scope = scope
             )
+            ViewModelProvider(owner, factory).get(vmClazz.java)
         }
     }
 }
@@ -95,16 +102,26 @@ inline fun <reified T : ViewModel> viewModel(
  *
  * @author Arnaud Giuliani
  */
+@OptIn(KoinInternalApi::class)
 @Composable
 @Deprecated("getStateViewModel will be merged to sharedViewModel - no need anymore of state parameter")
 inline fun <reified T : ViewModel> getStateViewModel(
     qualifier: Qualifier? = null,
-    owner: ViewModelStoreOwner? = null,
+    owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+    },
+    scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
     noinline state: BundleDefinition = emptyState(),
     noinline parameters: ParametersDefinition? = null,
 ): T {
-    val storeOwner = owner?.let { ViewModelOwner.from(it) } ?: getComposeViewModelOwner()
+    val stateOwner = LocalSavedStateRegistryOwner.current
     return remember(qualifier, parameters) {
-        storeOwner.stateRegistry!!.getStateViewModel(qualifier, state, parameters)
+        val vmClazz = T::class
+        val factory = scope.getViewModelFactory(
+            ViewModelParameter(
+                vmClazz, qualifier, state, parameters, owner, stateOwner
+            )
+        )
+        ViewModelProvider(owner, factory).get(vmClazz.java)
     }
 }

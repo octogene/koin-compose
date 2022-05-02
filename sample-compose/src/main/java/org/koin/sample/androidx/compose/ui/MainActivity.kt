@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.sample.androidx.compose.data.User
 import org.koin.sample.androidx.compose.viewmodel.UserViewModel
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun App(userViewModel: UserViewModel = getViewModel()) {
+fun App(userViewModel: UserViewModel = koinViewModel()) {
     UsersView(userViewModel.getUsers())
 }
 
