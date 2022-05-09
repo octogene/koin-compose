@@ -44,7 +44,7 @@ fun App(myService: MyService = get()) {
 
 The same way you have access to classical single/factory instances, you gain access to the following Koin ViewModel API:
 
-* `getViewModel()` - fetch instance
+* `getViewModel()` or `koinViewModel()` - fetch instance
 
 For a module that declares a 'MyViewModel' component:
 

@@ -1,8 +1,8 @@
 ext {
     // Koin core 
-    koin_version = '3.2.0-beta-2'
+    koin_version = '3.2.0'
     // koin project versions
-    koin_androidx_compose_version = '3.2.0-beta-2'
+    koin_androidx_compose_version = '3.2.0'
 
     // androix-compose
     androidx_compose_version = "1.1.1"

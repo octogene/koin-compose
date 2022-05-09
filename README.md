@@ -4,9 +4,11 @@
  
 A pragmatic lightweight dependency injection framework for Kotlin developers. `Koin is a DSL, a light container and a pragmatic API`
 
-## Koin for Compose - [3.2.0]
+## Koin for Jetpack Compose
 
-You can find the following page to help setup your project: [Koin Gradle Setup](https://insert-koin.io/docs/setup/v3.1)
+- current stable version: `koin_compose_version = 3.2.0` (base on jetpack compose `compose_version = 1.1.1`)
+
+You can find the following page to help setup your project: [Koin Gradle Setup](https://insert-koin.io/docs/setup/v3.2)
 
 ## Latest News
 - On our Blog: [The Kotzilla Blog](https://blog.kotzilla.io/)
@@ -16,23 +18,23 @@ You can find the following page to help setup your project: [Koin Gradle Setup](
 - Come talk on slack [#koin](https://kotlinlang.slack.com/?redir=%2Fmessages%2Fkoin) channel
 - Post your question on [Stackoverflow - #koin tag](https://stackoverflow.com/questions/tagged/koin)
 
-Found a bug or a problem on a specific feature? Open an issue on [Github issues](https://github.com/InsertKoinIO/koin/issues)
+Found a bug or a problem on a specific feature? Open an issue on [Github issues](https://github.com/InsertKoinIO/koin-compose/issues)
 
-## Contributing 🛠
+### Contributing 🛠
 
 Want to help or share a proposal about Koin? problem on a specific feature? 
 
-- Open an issue to explain the issue you want to solve [Open an issue](https://github.com/InsertKoinIO/koin/issues)
+- Open an issue to explain the issue you want to solve [Open an issue](https://github.com/InsertKoinIO/koin-compose/issues)
 - Come talk on slack [#koin-dev](https://kotlinlang.slack.com/?redir=%2Fmessages%2Fkoin-dev) channel
-- After discussion to validate your ideas, you can open a PR or even a draft PR if the contribution is a big one [Current PRs](https://github.com/InsertKoinIO/koin/pulls)
+- After discussion to validate your ideas, you can open a PR or even a draft PR if the contribution is a big one [Current PRs](https://github.com/InsertKoinIO/koin-compose/pulls)
 
-Additional readings about basic setup: https://github.com/InsertKoinIO/koin/blob/master/CONTRIBUTING.adoc
+Additional readings about basic setup: https://github.com/InsertKoinIO/koin-compose/blob/master/CONTRIBUTING.adoc
 
 <a href="https://github.com/InsertKoinIO/koin/graphs/contributors"><img src="https://opencollective.com/koin/contributors.svg?width=890&button=false" /></a>
 
 --
 
-# Sponsorship
+## Sponsorship
 
 [![Backers on Open Collective](https://opencollective.com/koin/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/koin/sponsors/badge.svg)](#sponsors) 
