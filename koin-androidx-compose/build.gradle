@@ -20,18 +20,11 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-        // useIR = true
     }
 
     buildFeatures {
@@ -39,22 +32,14 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion kotlin_version
-        kotlinCompilerExtensionVersion androidx_compose_version
-    }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
+        kotlinCompilerExtensionVersion "$androidx_compose_version"
     }
 }
 
 dependencies {
 
     // Koin
-    api "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-android:$koin_android_version"
     testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
     testImplementation 'junit:junit:4.13.2'
 
