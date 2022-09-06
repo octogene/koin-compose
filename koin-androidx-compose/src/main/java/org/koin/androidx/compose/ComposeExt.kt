@@ -46,13 +46,12 @@ inline fun <reified T> get(
 
 @OptIn(KoinInternalApi::class)
 @Composable
+@Deprecated("Lazy API is deprecated. Please use non Lazy API: get(qualifier,scope,parameters)",level = DeprecationLevel.ERROR)
 inline fun <reified T> inject(
     qualifier: Qualifier? = null,
     scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
     noinline parameters: ParametersDefinition? = null,
-): Lazy<T> = remember(qualifier, parameters) {
-    scope.inject(qualifier, LazyThreadSafetyMode.NONE, parameters)
-}
+): Lazy<T> = error("Lazy API is deprecated with Compose 1.1+")
 
 @Composable
 fun getKoin(): Koin = remember {
