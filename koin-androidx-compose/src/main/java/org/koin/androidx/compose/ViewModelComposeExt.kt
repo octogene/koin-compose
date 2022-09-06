@@ -34,6 +34,7 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.scope.Scope
+import kotlin.reflect.KClass
 
 /**
  * Resolve ViewModel instance
@@ -61,13 +62,22 @@ inline fun <reified T : ViewModel> getViewModel(
             owner, vmClazz, qualifier, parameters, scope = scope, state = state?.let { {it} }
         )
         val viewModelProvider = ViewModelProvider(owner, factory)
-        val viewModel: T = if (qualifier == null) {
-            viewModelProvider.get(vmClazz.java)
-        } else {
-            viewModelProvider.get(qualifier.value, vmClazz.java)
-        }
-        return@remember viewModel
+        return@remember resolveViewModelFromProvider(qualifier, viewModelProvider, vmClazz)
     }
+}
+
+@PublishedApi
+internal inline fun <reified T : ViewModel> resolveViewModelFromProvider(
+    qualifier: Qualifier?,
+    viewModelProvider: ViewModelProvider,
+    vmClazz: KClass<T>
+): T {
+    val viewModel: T = if (qualifier == null) {
+        viewModelProvider.get(vmClazz.java)
+    } else {
+        viewModelProvider.get(qualifier.value, vmClazz.java)
+    }
+    return viewModel
 }
 
 @OptIn(KoinInternalApi::class)
@@ -123,6 +133,7 @@ inline fun <reified T : ViewModel> getStateViewModel(
                 vmClazz, qualifier, state, parameters, owner, stateOwner
             )
         )
-        ViewModelProvider(owner, factory).get(vmClazz.java)
+        val viewModelProvider = ViewModelProvider(owner, factory)
+        resolveViewModelFromProvider(qualifier, viewModelProvider, vmClazz)
     }
 }
