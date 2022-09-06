@@ -57,27 +57,13 @@ inline fun <reified T : ViewModel> getViewModel(
 ): T {
     return remember(qualifier, parameters) {
         val vmClazz = T::class
-        val state = (owner as? NavBackStackEntry)?.arguments
+        val currentBundle = (owner as? NavBackStackEntry)?.arguments
         val factory = getViewModelFactory(
-            owner, vmClazz, qualifier, parameters, scope = scope, state = state?.let { {it} }
+            owner, vmClazz, qualifier, parameters, scope = scope, state = currentBundle?.let { {it} }
         )
         val viewModelProvider = ViewModelProvider(owner, factory)
         return@remember resolveViewModelFromProvider(qualifier, viewModelProvider, vmClazz)
     }
-}
-
-@PublishedApi
-internal inline fun <reified T : ViewModel> resolveViewModelFromProvider(
-    qualifier: Qualifier?,
-    viewModelProvider: ViewModelProvider,
-    vmClazz: KClass<T>
-): T {
-    val viewModel: T = if (qualifier == null) {
-        viewModelProvider.get(vmClazz.java)
-    } else {
-        viewModelProvider.get(qualifier.value, vmClazz.java)
-    }
-    return viewModel
 }
 
 @OptIn(KoinInternalApi::class)
@@ -93,9 +79,23 @@ inline fun <reified T : ViewModel> koinViewModel(
     return getViewModel(qualifier, owner, scope, parameters)
 }
 
+@PublishedApi
+internal inline fun <reified T : ViewModel> resolveViewModelFromProvider(
+    qualifier: Qualifier?,
+    viewModelProvider: ViewModelProvider,
+    vmClazz: KClass<T>
+): T {
+    val viewModel: T = if (qualifier == null) {
+        viewModelProvider[vmClazz.java]
+    } else {
+        viewModelProvider[qualifier.value, vmClazz.java]
+    }
+    return viewModel
+}
+
 @OptIn(KoinInternalApi::class)
-@Composable
 @Deprecated("ViewModelLazy API is not supported by Jetpack Compose 1.1+. Please use koinViewModel(qualifier,owner,scope,parameters)",level = DeprecationLevel.ERROR)
+@Composable
 inline fun <reified T : ViewModel> viewModel(
     qualifier: Qualifier? = null,
     owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
@@ -115,14 +115,13 @@ inline fun <reified T : ViewModel> viewModel(
  */
 @OptIn(KoinInternalApi::class)
 @Composable
-@Deprecated("getStateViewModel will be merged to sharedViewModel - no need anymore of state parameter")
 inline fun <reified T : ViewModel> getStateViewModel(
     qualifier: Qualifier? = null,
     owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
         "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
     },
     scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
-    noinline state: BundleDefinition = emptyState(),
+    noinline state: BundleDefinition,
     noinline parameters: ParametersDefinition? = null,
 ): T {
     val stateOwner = LocalSavedStateRegistryOwner.current
