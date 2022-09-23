@@ -5,7 +5,17 @@ Badges: `[UPDATED]`, `[FIXED]`, `[NEW]`, `[DEPRECATED]`, `[REMOVED]`,  `[BREAKIN
 
 # [3.2]()
 
-## [3.2.0-beta-2]()
+## [3.2.1]() - 2022-09-22
+
+* `[UPDATED]` - update with Koin 3.2.2
+* `[FIXED]` Fix ViewModel API to link qualifier, scope & parameters. Update with new ViewModel API support
+	- lifecycle-viewmodel-compose:2.4.1
+	- navigation-compose:2.4.2
+* `[FIXED]` https://github.com/InsertKoinIO/koin/issues/1350 - Fix SavedStateHandle link
+* `[FIXED]` https://github.com/InsertKoinIO/koin/issues/1305 - Fix to pass right arguments for navigation
+* `[DEPRECATED]` Lazy API is now deprecated - https://github.com/InsertKoinIO/koin/issues/1347
+
+## [3.2.0]()
 * `[UPDATED]` `[androidx-compose]` - Compose 1.1.1
 * `[UPDATED]` `[androidx-compose]` - Update ViewModel API internals due to Koin 3.2 latest update
 

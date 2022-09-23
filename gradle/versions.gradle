@@ -1,8 +1,8 @@
 ext {
 
     // Koin
-    koin_version = '3.2.1'
-    koin_android_version = '3.2.1'
+    koin_version = '3.2.2'
+    koin_android_version = '3.2.2'
     // koin project versions
     koin_androidx_compose_version = '3.2.1'
 

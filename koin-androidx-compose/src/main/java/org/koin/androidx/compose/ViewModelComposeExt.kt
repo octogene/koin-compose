@@ -62,7 +62,7 @@ inline fun <reified T : ViewModel> getViewModel(
             owner, vmClazz, qualifier, parameters, scope = scope, state = currentBundle?.let { {it} }
         )
         val viewModelProvider = ViewModelProvider(owner, factory)
-        return@remember resolveViewModelFromProvider(qualifier, viewModelProvider, vmClazz)
+        resolveViewModelFromProvider(qualifier, viewModelProvider, vmClazz)
     }
 }
 
