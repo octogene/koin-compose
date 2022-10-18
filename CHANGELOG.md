@@ -5,6 +5,10 @@ Badges: `[UPDATED]`, `[FIXED]`, `[NEW]`, `[DEPRECATED]`, `[REMOVED]`,  `[BREAKIN
 
 # [3.2]()
 
+## [3.2.2]() - 2022-10-18
+
+* `[UPDATED]` - update with `koin-android` 3.2.3
+
 ## [3.2.1]() - 2022-09-22
 
 * `[UPDATED]` - update with Koin 3.2.2
